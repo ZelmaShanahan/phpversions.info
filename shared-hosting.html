@@ -1,0 +1,48 @@
+---
+layout: default
+---
+
+<article class="hosts">
+    <section>
+        <div class="host-description">
+            <h2>Shared Hosting</h2>
+            <p>Shared hosting is the most common type of hosting. It means that multiple websites owned by various people are all jammed onto the same server. These are often the slowest to update PHP versions because of the potential for breaking many sites. Still, manual upgrade options should be offered to move from one PHP version to another, and automatic updates at the patch level (0.0.X) should be provided.</p>
+            <hr>
+        </div>
+        <table class="tables tables__scrollbar" data-sortable>
+        <thead>
+          <tr>
+            <th data-sortable-type="alpha">Host</th>
+            <th data-sortable-type="alpha">Last Scanned</th>
+            <th>8.1</th>
+            <th>8.0</th>
+            <th>7.4</th>
+            <th colspan="7">End Of Life</th>
+            <th>Default</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% assign hosts = (site.data.hosts | filter_by_type: 'shared' | semver_sort) %}
+        {% for host in hosts %}
+          <tr>
+            <td class="host-name" data-value="{{ host.name | downcase }}"><a href="{{ host.url }}">{{ host.name }}</a></td>
+            <td class="host-info" data-last-scanned="{{ host.last_scanned_at }}" data-value="{{ host.last_scanned_at }}">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="host-info version">{{ host.versions[81] | format_version }}</td>
+            <td class="host-info version">{{ host.versions[80] | format_version }}</td>
+            <td class="host-info version">{{ host.versions[74] | format_version }}</td>
+            <td class="host-info version">{{ host.versions[73] | format_version }}</td>
+            <td class="host-info version">{{ host.versions[72] | format_version }}</td>
+            <td class="host-info version">{{ host.versions[71] | format_version }}</td>
+            <td class="host-info version">{{ host.versions[70] | format_version }}</td>
+            <td class="host-info version">{{ host.versions[56] | format_version }}</td>
+            <td class="host-info version">{{ host.versions[55] | format_version }}</td>
+            <td class="host-info version">{{ host.versions[54] | format_version }}</td>
+            <td class="host-info version">{% if host.default %}{{ host.versions[host.default] | format_version }}{% else %}<em>???</em>{% endif %}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+    </section>
+</article>

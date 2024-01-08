@@ -1,0 +1,42 @@
+---
+layout: default
+---
+
+{% assign all_hosts = site.data.hosts %}
+{% assign sorted_hosts = (all_hosts | sort: 'name') %}
+
+<article class="hosts">
+  <section>
+    <div class="host-description">
+      <h2>PHP 8.1</h2>
+      <p>PHP 8.1 is out! After maturing like a fine artisanal cheese in through months of release candidates, it's now <a href="http://php.net/releases/8_1_0.php">officially released</a> and heading to a server near you.</p>
+      <p>Upgrading to PHP 8.1 is <a href="http://php.net/manual/en/migration81.php">well documented</a>, and installing locally is explained over on <a href="http://www.phptherightway.com/#use_the_current_stable_version">PHP The Right Way: Getting Started</a>.</p>
+      <hr>
+    </div>
+    <table class="tables">
+      <thead>
+        <tr>
+          <th>Host</th>
+          <th>Last Scanned</th>
+          <th>version</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for host in sorted_hosts %}
+        {% if host.versions[81] %}
+        <tr>
+          <td class="host-name" data-value="{{ host.name | downcase }}"><a href="{{ host.url }}">{{ host.name | escape }}</a></td>
+          <td class="host-info" data-last-scanned="{{ host.last_scanned_at }}">
+              <i class="fa fa-times"></i>
+          </td>
+          <td class="host-info version">{{ host.versions[81] | format_version }}</td>
+        </tr>
+        {% endif %}
+      {% endfor %}
+        <tr>
+          <td colspan="3">Want to contribute to this list? This site is up on GitHub, so head over to our <a href="https://github.com/philsturgeon/phpversions.info/">contribution instructions</a>.
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
