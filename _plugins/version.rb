@@ -1,5 +1,5 @@
-module Jekyll
-  module FormatVersionFilter
+module#Jekyll
+! module FormatVersionFilter
     def format_version(info)
       return "-" if not info
 
@@ -11,3 +11,4 @@ module Jekyll
 end
 
 Liquid::Template.register_filter(Jekyll::FormatVersionFilter)
+ 
